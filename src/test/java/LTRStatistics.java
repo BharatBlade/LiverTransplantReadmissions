@@ -544,7 +544,7 @@ public class LTRStatistics {
 	            if (patient.readmissions[j]) {
 	                // Update statistics for hospitalized patients
 	                for (int k = 0; k < stats.BMI.length - 1; k++) {
-	                    if (b > stats.BMI[k] && b <= stats.BMI[k + 1]) {
+	                    if (b >= stats.BMI[k] && b < stats.BMI[k + 1]) {
 	                        stats.bmiHosp[j][k] += b;
 	                        stats.bmiHospCount[j][k]++;
 	                        stats.bmiHospList.get(j).add(b);
