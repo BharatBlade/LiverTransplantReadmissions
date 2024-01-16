@@ -554,7 +554,7 @@ public class LTRStatistics {
 	            } else {
 	                // Update statistics for non-hospitalized patients
 	                for (int k = 0; k < stats.BMI.length - 1; k++) {
-	                    if (b > stats.BMI[k] && b <= stats.BMI[k + 1]) {
+	                    if (b >= stats.BMI[k] && b < stats.BMI[k + 1]) {
 	                        stats.bmiNoHosp[j][k] += b;
 	                        stats.bmiNoHospCount[j][k]++;
 	                        stats.bmiNoHospList.get(j).add(b);
@@ -632,7 +632,7 @@ public class LTRStatistics {
 	            if (patient.readmissions[j]) {
 	                // Update statistics for hospitalized patients
 	                for (int k = 0; k < stats.MELD.length - 1; k++) {
-	                    if (b > stats.MELD[k] && b <= stats.MELD[k + 1]) {
+	                    if (b >= stats.MELD[k] && b < stats.MELD[k + 1]) {
 	                        stats.meldHosp[j][k] += b;
 	                        stats.meldHospCount[j][k]++;
 	                        stats.meldHospList.get(j).add(b);
@@ -642,7 +642,7 @@ public class LTRStatistics {
 	            } else {
 	                // Update statistics for non-hospitalized patients
 	                for (int k = 0; k < stats.MELD.length - 1; k++) {
-	                    if (b > stats.MELD[k] && b <= stats.MELD[k + 1]) {
+	                    if (b >= stats.MELD[k] && b < stats.MELD[k + 1]) {
 	                        stats.meldNoHosp[j][k] += b;
 	                        stats.meldNoHospCount[j][k]++;
 	                        stats.meldNoHospList.get(j).add(b);
