@@ -13,14 +13,14 @@ import org.apache.parquet.hadoop.ParquetWriter;
 import org.apache.parquet.hadoop.metadata.CompressionCodecName;
 
 /**
- * A utility class for reading from and writing to Parquet files using Apache Avro and Parquet libraries.
+ * A utility class for reading from and writing to Parquet files.
  */
 public class FastParquet {
     // Parquet reader for reading GenericRecord from Parquet file
     public ParquetReader<GenericRecord> reader;
     // Default CSV delimiter
     public char delimiter = ',';
-    // Utility classes for reading and writing files
+    // Custom-made utility classes for reading and writing files
     public FastReader scanner;
     public FastWriter writer;
 
@@ -84,7 +84,8 @@ public class FastParquet {
     public String createSchema(String[] fields) {
         // Build the Avro schema string
         String schema = "{"
-                + "\"namespace\": \"org.myorg.myname\",\"type\": \"record\","
+                + "\"namespace\": \"org.myorg.myname\","
+                + "\"type\": \"record\","
                 + "\"name\": \"patient\",\""
                 + "fields\": [ ";
         for (int i = 0; i < fields.length - 1; i++) {
@@ -99,17 +100,16 @@ public class FastParquet {
     /**
      * Creates a GenericRecord based on the provided CSV line, fields, and Avro schema.
      *
-     * @param line      The CSV line to convert to a GenericRecord.
-     * @param fields    The fields used for mapping CSV values to GenericRecord.
-     * @param avroSchema The Avro schema for the GenericRecord.
+     * @param line      	The CSV line to convert to a GenericRecord.
+     * @param fields    	The fields used for mapping CSV values to GenericRecord.
+     * @param avroSchema 	The Avro schema for the GenericRecord.
      * @return The GenericRecord created from the CSV line.
      */
-    public GenericData.Record createRecord(String line, String[] fields, Schema avroSchema) {
-        String line2 = line;
-        String[] arr = scanner.csvLineToArray(line2, delimiter);
+    public GenericData.Record createRecord(String line, String[] fieldNames, Schema avroSchema) {
+        String[] fieldValues = scanner.csvLineToArray(line, delimiter);
         GenericData.Record record = new GenericData.Record(avroSchema);
-        for (int i = 0; i < fields.length; i++) {
-            record.put(fields[i], arr[i]);
+        for (int i = 0; i < fieldNames.length; i++) {
+            record.put(fieldNames[i], fieldValues[i]);
         }
         return record;
     }
@@ -125,9 +125,9 @@ public class FastParquet {
      */
     public void parquetWriteCSVToParquet(String inputFile, String outputFile, CompressionCodecName codec, int pageSize, long rowGroupSize) {
         // Initialize a FastReader for reading CSV lines
-        FastReader cr = new FastReader(inputFile);
+        FastReader fastReader = new FastReader(inputFile);
         // Read the first line to get the CSV fields
-        String line = cr.nextLine();
+        String line = fastReader.nextLine();
         // Prepend "Index" to the first line
         line = "Index" + line;
 
@@ -137,7 +137,7 @@ public class FastParquet {
         Schema avroSchema = (new Schema.Parser().setValidate(true)).parse(createSchema(fields));
         System.out.println(line);
         System.out.println(Arrays.toString(fields));
-        double count = 0;
+        double currentRecordNumber = 0;
         long time = System.currentTimeMillis();
         try {
             // Initialize a ParquetWriter using AvroParquetWriter
@@ -150,7 +150,7 @@ public class FastParquet {
                     .withRowGroupSize(rowGroupSize)
                     .build()) {
                 // Read the next CSV line
-                line = cr.nextLine();
+                line = fastReader.nextLine();
                 // Process each CSV line until the end of the file
                 while (line != null) {
                     // Create a GenericRecord from the CSV line
@@ -158,25 +158,25 @@ public class FastParquet {
                     try {
                         // Write the record to the Parquet file
                         writer.write(record);
-                        count++;
+                        currentRecordNumber++;
                         // Print progress every 10,000 records
-                        if (count % 10000 == 0) {
-                            System.out.println(count + "\t" + (System.currentTimeMillis() - time));
+                        if (currentRecordNumber % 10000 == 0) {
+                            System.out.println(currentRecordNumber + "\t" + (System.currentTimeMillis() - time) + "ms");
                         }
                     } catch (Exception e) {
-                        System.out.println("Error in the following record (line " + count + ") detected: " + record);
+                        System.out.println("Error in the following record (line " + currentRecordNumber + ") detected: " + record);
                         e.printStackTrace();
                     }
                     // Read the next CSV line
-                    line = cr.nextLine();
+                    line = fastReader.nextLine();
                 }
                 // Close the ParquetWriter
                 writer.close();
             }
         } catch (IOException e) {
-            e.printStackTrace(System.out);
+            e.printStackTrace();
         }
         // Close the FastReader
-        cr.close();
+        fastReader.close();
     }
 }

@@ -12,8 +12,8 @@ public class FastReader {
     public String[] fileNames;
     public File file;
     public File[] files;
-    public FileReader fr;
-    public BufferedReader br;
+    public FileReader fileReader;
+    public BufferedReader bufferedReader;
 
     /**
      * Constructor that initializes the FastReader with a file name.
@@ -26,11 +26,11 @@ public class FastReader {
         try {
             fileName = str;
             file = new File(fileName);
-            fr = new FileReader(file);
-            br = new BufferedReader(fr);
+            fileReader = new FileReader(file);
+            bufferedReader = new BufferedReader(fileReader);
         } catch (IOException e) {
-            fr = null;
-            br = null;
+        	fileReader = null;
+        	bufferedReader = null;
             e.printStackTrace();
         }
     }
@@ -42,7 +42,7 @@ public class FastReader {
      */
     public String nextLine() {
         try {
-            return br.readLine();
+            return bufferedReader.readLine();
         } catch (IOException e) {
             e.printStackTrace();
             return null;
@@ -51,12 +51,11 @@ public class FastReader {
 
     /**
      * Closes the BufferedReader and FileReader.
-     * Handles IOException by printing the stack trace.
      */
     public void close() {
         try {
-            br.close();
-            fr.close();
+        	bufferedReader.close();
+        	fileReader.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -76,19 +75,20 @@ public class FastReader {
     /**
      * Converts a CSV (Comma-Separated Values) line to an array of strings using the specified delimiter.
      * Assumes that the input CSV line is well-formed.
+     * This is a faster implementation (personal testing) in specific cases
      *
      * @param s          The CSV line to be converted.
      * @param delimiter  The character used to separate values in the CSV line.
      * @return           An array of strings containing individual values from the CSV line.
      */
-    public String[] csvLineToArray(String s, char delimiter) {
-        String[] t = new String[countColumns(s, String.valueOf(delimiter))];
-        for (int i = 0; i < t.length - 1; i++) {
-            int p = s.indexOf(delimiter);
-            t[i] = s.substring(0, p);
-            s = s.substring(p + 1);
+    public String[] csvLineToArray(String line, char delimiter) {
+        String[] array = new String[countColumns(line, String.valueOf(delimiter))];
+        for (int i = 0; i < array.length - 1; i++) {
+            int delimterPosition = line.indexOf(delimiter);
+            array[i] = line.substring(0, delimterPosition);
+            line = line.substring(delimterPosition + 1);
         }
-        t[t.length - 1] = s;
-        return t;
+        array[array.length - 1] = line;
+        return array;
     }
 }

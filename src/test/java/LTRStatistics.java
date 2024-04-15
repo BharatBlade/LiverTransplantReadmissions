@@ -1,4 +1,3 @@
-import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
@@ -17,10 +16,10 @@ public class LTRStatistics {
     public static TreeMap<Integer, STARDataPatient> patientDatabase = new TreeMap<Integer, STARDataPatient>();
 
     // FastStatistics instance for statistical calculations
-    public static FastStatistics stats = new FastStatistics();
+    public static FastStatistics statistics = new FastStatistics();
 
     // FastParquet instance for Parquet-related operations
-    public static FastParquet p = new FastParquet();
+    public static FastParquet parquet = new FastParquet();
 
 	
     /**
@@ -31,7 +30,7 @@ public class LTRStatistics {
         System.setProperty("org.slf4j.simpleLogger.defaultLogLevel", "error");
 
         // Set the delimiter for CSV parsing
-        p.delimiter = ',';
+        parquet.delimiter = ',';
 
         // Process liver transplant patient data
         getLiverTransplantPatients();
@@ -93,13 +92,13 @@ public class LTRStatistics {
 	    String dirLiverData = "LIVER_DATA.parquet";
 
 	    // Initialize ParquetReader for reading data from the Parquet file
-	    p.parquetReader(dirLiverData);
+	    parquet.parquetReader(dirLiverData);
 
 	    GenericRecord nextRecord;
 
 	    try {
 	        // Read the next record from the Parquet file
-	        nextRecord = p.reader.read();
+	        nextRecord = parquet.reader.read();
 
 	        // Process each record until the end of the file is reached
 	        while (nextRecord != null) {
@@ -141,11 +140,11 @@ public class LTRStatistics {
 	            }
 
 	            // Read the next record
-	            nextRecord = p.reader.read();
+	            nextRecord = parquet.reader.read();
 	        }
 
 	        // Close the ParquetReader
-	        p.reader.close();
+	        parquet.reader.close();
 	    } catch (Exception e) {
 	        e.printStackTrace();
 	    }
@@ -160,11 +159,11 @@ public class LTRStatistics {
 	    String dirLiverFollowUpData = "LIVER_FOLLOWUP_DATA.parquet";
 
 	    // Initialize ParquetReader for reading data from the follow-up Parquet file
-	    p.parquetReader(dirLiverFollowUpData);
+	    parquet.parquetReader(dirLiverFollowUpData);
 
 	    try {
 	        // Read the next record from the Parquet file
-	        GenericRecord nextRecord = p.reader.read();
+	        GenericRecord nextRecord = parquet.reader.read();
 
 	        // Process each record until the end of the file is reached
 	        while (nextRecord != null) {
@@ -195,11 +194,11 @@ public class LTRStatistics {
 	            }
 
 	            // Read the next record
-	            nextRecord = p.reader.read();
+	            nextRecord = parquet.reader.read();
 	        }
 
 	        // Close the ParquetReader
-	        p.reader.close();
+	        parquet.reader.close();
 	    } catch (Exception e) {
 	        e.printStackTrace();
 	    }
@@ -237,8 +236,8 @@ public class LTRStatistics {
 
 	                // Check if the patient had a readmission within specified intervals
 	                if (difference > 0) {
-	                    for (int l = 0; l < stats.intervals.length; l++) {
-	                        if (difference <= stats.intervals[l]) {
+	                    for (int l = 0; l < statistics.timeIntervals.length; l++) {
+	                        if (difference <= statistics.timeIntervals[l]) {
 	                            // Set readmission status for the corresponding interval
 	                            patientDatabase.get((Integer) arr[i]).readmissions[l] = true;
 	                        }
@@ -272,7 +271,7 @@ public class LTRStatistics {
 	            }
 
 	            // Calculate the average BMI for the patient using the Mean method from FastStatistics
-	            patient.averageBMI = stats.Mean(bmiDoubles);
+	            patient.averageBMI = statistics.Mean(bmiDoubles);
 	        }
 	    }
 	}
@@ -300,7 +299,7 @@ public class LTRStatistics {
 	            }
 
 	            // Calculate the average MELD score for the patient using the Mean method from FastStatistics
-	            patient.averageMELD = stats.Mean(meldDoubles);
+	            patient.averageMELD = statistics.Mean(meldDoubles);
 	        }
 	    }
 	}
@@ -334,9 +333,9 @@ public class LTRStatistics {
 	            double highestBMI = bmiDoubles.last();
 
 	            // Check consistency of BMI values within specified intervals
-	            for (int j = 0; j < stats.BMI.length - 1; j++) {
-	                boolean one = (lowestBMI > stats.BMI[j] && lowestBMI <= stats.BMI[j + 1]);
-	                boolean two = (highestBMI > stats.BMI[j] && highestBMI <= stats.BMI[j + 1]);
+	            for (int j = 0; j < statistics.BMICategoryBounds.length - 1; j++) {
+	                boolean one = (lowestBMI > statistics.BMICategoryBounds[j] && lowestBMI <= statistics.BMICategoryBounds[j + 1]);
+	                boolean two = (highestBMI > statistics.BMICategoryBounds[j] && highestBMI <= statistics.BMICategoryBounds[j + 1]);
 
 	                // Set the failure flag if inconsistency is detected
 	                if (one != two) {
@@ -371,33 +370,32 @@ public class LTRStatistics {
 	        // Check diabetes status and update statistics accordingly
 	        if (strDiab.equals("1.0")) {
 	            // Update statistics for patients without diabetes
-	            stats.noDiab[stats.noDiab.length - 1]++;
+	        	statistics.noDiabetes[statistics.noDiabetes.length - 1]++;
 	            for (int j = 0; j < patient.readmissions.length; j++) {
 	                if (patient.readmissions[j]) {
-	                    stats.noDiab[j]++;
+	                	statistics.noDiabetes[j]++;
 	                }
 	            }
 	        } else if (strDiab.equals("2.0") || strDiab.equals("3.0") || strDiab.equals("4.0") || strDiab.equals("5.0")) {
 	            // Update statistics for patients with diabetes
-	            stats.diab[stats.diab.length - 1]++;
+	        	statistics.yesDiabetes[statistics.yesDiabetes.length - 1]++;
 	            for (int j = 0; j < patient.readmissions.length; j++) {
 	                if (patient.readmissions[j]) {
-	                    stats.diab[j]++;
+	                	statistics.yesDiabetes[j]++;
 	                }
 	            }
 	        }
 	    }
 
 	    // Print chi-square statistics for each time interval
-	    for (int i = 0; i < stats.diab.length - 1; i++) {
-	        double x = stats.chiSquareForYNVariables(stats.diab[i], stats.noDiab[i], stats.diab[stats.diab.length - 1], stats.noDiab[stats.noDiab.length - 1]);
-	        double p = stats.pValueChiSquare(x, 1);
-	        System.out.println(x + ", " + p);
+	    for (int i = 0; i < statistics.yesDiabetes.length - 1; i++) {
+	        double x = statistics.chiSquareForYNVariables(statistics.yesDiabetes[i], statistics.noDiabetes[i], statistics.yesDiabetes[statistics.yesDiabetes.length - 1], statistics.noDiabetes[statistics.noDiabetes.length - 1]);
+	        System.out.println(x);
 	    }
 
 	    // Print the total number of readmissions for patients with and without diabetes
-	    System.out.println(Arrays.toString(stats.diab));
-	    System.out.println(Arrays.toString(stats.noDiab));
+	    System.out.println(Arrays.toString(statistics.yesDiabetes));
+	    System.out.println(Arrays.toString(statistics.noDiabetes));
 	}
 
 	/**
@@ -415,33 +413,32 @@ public class LTRStatistics {
 	        // Check HCV serostatus and update statistics accordingly
 	        if (sero.equals("P")) {
 	            // Update statistics for patients with positive HCV serostatus
-	            stats.hcv[stats.hcv.length - 1]++;
+	        	statistics.yesHCV[statistics.yesHCV.length - 1]++;
 	            for (int j = 0; j < patient.readmissions.length; j++) {
 	                if (patient.readmissions[j]) {
-	                    stats.hcv[j]++;
+	                	statistics.yesHCV[j]++;
 	                }
 	            }
 	        } else if (sero.equals("N")) {
 	            // Update statistics for patients with negative HCV serostatus
-	            stats.nohcv[stats.nohcv.length - 1]++;
+	        	statistics.noHCV[statistics.noHCV.length - 1]++;
 	            for (int j = 0; j < patient.readmissions.length; j++) {
 	                if (patient.readmissions[j]) {
-	                    stats.nohcv[j]++;
+	                	statistics.noHCV[j]++;
 	                }
 	            }
 	        }
 	    }
 
 	    // Print chi-square statistics for each time interval
-	    for (int i = 0; i < stats.hcv.length - 1; i++) {
-	        double x = stats.chiSquareForYNVariables(stats.hcv[i], stats.nohcv[i], stats.hcv[stats.hcv.length - 1], stats.nohcv[stats.nohcv.length - 1]);
-	        double p = stats.pValueChiSquare(x, 1);
-	        System.out.println(x + ", " + p);
+	    for (int i = 0; i < statistics.yesHCV.length - 1; i++) {
+	        double x = statistics.chiSquareForYNVariables(statistics.yesHCV[i], statistics.noHCV[i], statistics.yesHCV[statistics.yesHCV.length - 1], statistics.noHCV[statistics.noHCV.length - 1]);
+	        System.out.println(x);
 	    }
 
 	    // Print the total number of readmissions for patients with positive and negative HCV serostatus
-	    System.out.println(Arrays.toString(stats.hcv));
-	    System.out.println(Arrays.toString(stats.nohcv));
+	    System.out.println(Arrays.toString(statistics.yesHCV));
+	    System.out.println(Arrays.toString(statistics.noHCV));
 	}
 	
 	/**
@@ -459,33 +456,32 @@ public class LTRStatistics {
 	        // Check malignancy status and update statistics accordingly
 	        if (malig.equals("Y")) {
 	            // Update statistics for patients with malignancy
-	            stats.malig[stats.malig.length - 1]++;
+	        	statistics.malignancyPopulationofHospitalized[statistics.malignancyPopulationofHospitalized.length - 1]++;
 	            for (int j = 0; j < patient.readmissions.length; j++) {
 	                if (patient.readmissions[j]) {
-	                    stats.malig[j]++;
+	                	statistics.malignancyPopulationofHospitalized[j]++;
 	                }
 	            }
 	        } else if (malig.equals("N")) {
 	            // Update statistics for patients without malignancy
-	            stats.noMalig[stats.noMalig.length - 1]++;
+	        	statistics.malignancyPopulationOfNotHospitalized[statistics.malignancyPopulationOfNotHospitalized.length - 1]++;
 	            for (int j = 0; j < patient.readmissions.length; j++) {
 	                if (patient.readmissions[j]) {
-	                    stats.noMalig[j]++;
+	                	statistics.malignancyPopulationOfNotHospitalized[j]++;
 	                }
 	            }
 	        }
 	    }
 
 	    // Print chi-square statistics for each time interval
-	    for (int i = 0; i < stats.malig.length - 1; i++) {
-	        double x = stats.chiSquareForYNVariables(stats.malig[i], stats.noMalig[i], stats.malig[stats.malig.length - 1], stats.noMalig[stats.noMalig.length - 1]);
-	        double p = stats.pValueChiSquare(x, 1);
-	        System.out.println(x + ", " + p);
+	    for (int i = 0; i < statistics.malignancyPopulationofHospitalized.length - 1; i++) {
+	        double x = statistics.chiSquareForYNVariables(statistics.malignancyPopulationofHospitalized[i], statistics.malignancyPopulationOfNotHospitalized[i], statistics.malignancyPopulationofHospitalized[statistics.malignancyPopulationofHospitalized.length - 1], statistics.malignancyPopulationOfNotHospitalized[statistics.malignancyPopulationOfNotHospitalized.length - 1]);
+	        System.out.println(x);
 	    }
 
 	    // Print the total number of readmissions for patients with and without malignancy
-	    System.out.println(Arrays.toString(stats.malig));
-	    System.out.println(Arrays.toString(stats.noMalig));
+	    System.out.println(Arrays.toString(statistics.malignancyPopulationofHospitalized));
+	    System.out.println(Arrays.toString(statistics.malignancyPopulationOfNotHospitalized));
 	}
 
 	/**
@@ -504,36 +500,35 @@ public class LTRStatistics {
 	        for (int j = 0; j < patient.readmissions.length; j++) {
 	            if (patient.readmissions[j]) {
 	                // Update statistics for hospitalized patients
-	                stats.ageHosp[j] += age;
-	                stats.ageHospCount[j]++;
-	                stats.ageHospList.get(j).add(age);
+	            	statistics.ageAverageOfHospitalized[j] += age;
+	            	statistics.agePopulationofHospitalized[j]++;
+	            	statistics.ageValuesOfHospitalized.get(j).add(age);
 	            } else {
 	                // Update statistics for non-hospitalized patients
-	                stats.ageNoHosp[j] += age;
-	                stats.ageNoHospCount[j]++;
-	                stats.ageNoHospList.get(j).add(age);
+	            	statistics.ageAverageOfNotHospitalized[j] += age;
+	            	statistics.agePopulationOfNotHospitalized[j]++;
+	            	statistics.ageValuesOfNotHospitalized.get(j).add(age);
 	            }
 	        }
 	    }
 
 	    // Calculate average age for hospitalized and non-hospitalized patients
-	    for (int j = 0; j < stats.ageHosp.length; j++) {
-	        stats.ageHosp[j] = stats.ageHosp[j] / stats.ageHospCount[j];
-	        stats.ageNoHosp[j] = stats.ageNoHosp[j] / stats.ageNoHospCount[j];
+	    for (int j = 0; j < statistics.ageAverageOfHospitalized.length; j++) {
+	    	statistics.ageAverageOfHospitalized[j] = statistics.ageAverageOfHospitalized[j] / statistics.agePopulationofHospitalized[j];
+	    	statistics.ageAverageOfNotHospitalized[j] = statistics.ageAverageOfNotHospitalized[j] / statistics.agePopulationOfNotHospitalized[j];
 	    }
 
 	    // Print statistics related to patient age and readmissions
-	    System.out.println(Arrays.toString(stats.ageHosp));
-	    System.out.println(Arrays.toString(stats.ageHospCount));
-	    System.out.println(Arrays.toString(stats.ageNoHosp));
-	    System.out.println(Arrays.toString(stats.ageNoHospCount));
+	    System.out.println(Arrays.toString(statistics.ageAverageOfHospitalized));
+	    System.out.println(Arrays.toString(statistics.agePopulationofHospitalized));
+	    System.out.println(Arrays.toString(statistics.ageAverageOfNotHospitalized));
+	    System.out.println(Arrays.toString(statistics.agePopulationOfNotHospitalized));
 
 	    // Print t-test results for each time interval
-	    for (int i = 0; i < stats.ageHospList.size(); i++) {
-	        double t = stats.tTest(stats.ageHospList.get(i), stats.ageNoHospList.get(i));
+	    for (int i = 0; i < statistics.ageValuesOfHospitalized.size(); i++) {
+	        double t = statistics.tTest(statistics.ageValuesOfHospitalized.get(i), statistics.ageValuesOfNotHospitalized.get(i));
 	        t = Math.abs(t);
-	        BigDecimal p = stats.pValueTTest(t, stats.ageHospList.get(i).size() + stats.ageNoHospList.get(i).size() - 2);
-	        System.out.println(t + ", " + p);
+	        System.out.println(t);
 	    }
 	}
 	
@@ -553,22 +548,22 @@ public class LTRStatistics {
 	        for (int j = 0; j < patient.readmissions.length; j++) {
 	            if (patient.readmissions[j]) {
 	                // Update statistics for hospitalized patients
-	                for (int k = 0; k < stats.BMI.length - 1; k++) {
-	                    if (b > stats.BMI[k] && b <= stats.BMI[k + 1]) {
-	                        stats.bmiHosp[j][k] += b;
-	                        stats.bmiHospCount[j][k]++;
-	                        stats.bmiHospList.get(j).add(b);
-	                        stats.bmiSpecificHospList.get(j).get(k).add(b);
+	                for (int k = 0; k < statistics.BMICategoryBounds.length - 1; k++) {
+	                    if (b > statistics.BMICategoryBounds[k] && b <= statistics.BMICategoryBounds[k + 1]) {
+	                    	statistics.bmiAverageOfHospitalized[j][k] += b;
+	                    	statistics.bmiPopulationOfHospitalized[j][k]++;
+	                    	statistics.bmiValuesOfHospitalized.get(j).add(b);
+	                    	statistics.bmiSpecificHospList.get(j).get(k).add(b);
 	                    }
 	                }
 	            } else {
 	                // Update statistics for non-hospitalized patients
-	                for (int k = 0; k < stats.BMI.length - 1; k++) {
-	                    if (b > stats.BMI[k] && b <= stats.BMI[k + 1]) {
-	                        stats.bmiNoHosp[j][k] += b;
-	                        stats.bmiNoHospCount[j][k]++;
-	                        stats.bmiNoHospList.get(j).add(b);
-	                        stats.bmiSpecificNoHospList.get(j).get(k).add(b);
+	                for (int k = 0; k < statistics.BMICategoryBounds.length - 1; k++) {
+	                    if (b > statistics.BMICategoryBounds[k] && b <= statistics.BMICategoryBounds[k + 1]) {
+	                    	statistics.bmiAverageOfNotHospitalized[j][k] += b;
+	                    	statistics.bmiPopulationOfNotHospitalized[j][k]++;
+	                    	statistics.bmiValuesOfNotHospitalized.get(j).add(b);
+	                    	statistics.bmiSpecificNoHospList.get(j).get(k).add(b);
 	                    }
 	                }
 	            }
@@ -576,49 +571,49 @@ public class LTRStatistics {
 	    }
 
 	    // Calculate average BMI for hospitalized and non-hospitalized patients
-	    for (int i = 0; i < stats.bmiHosp.length; i++) {
-	        for (int j = 0; j < stats.bmiHosp[i].length; j++) {
-	            stats.bmiHosp[i][j] = stats.bmiHosp[i][j] / stats.bmiHospCount[i][j];
-	            stats.bmiNoHosp[i][j] = stats.bmiNoHosp[i][j] / stats.bmiNoHospCount[i][j];
+	    for (int i = 0; i < statistics.bmiAverageOfHospitalized.length; i++) {
+	        for (int j = 0; j < statistics.bmiAverageOfHospitalized[i].length; j++) {
+	        	statistics.bmiAverageOfHospitalized[i][j] = statistics.bmiAverageOfHospitalized[i][j] / statistics.bmiPopulationOfHospitalized[i][j];
+	        	statistics.bmiAverageOfNotHospitalized[i][j] = statistics.bmiAverageOfNotHospitalized[i][j] / statistics.bmiPopulationOfNotHospitalized[i][j];
 	        }
 	    }
 
 	    // Print statistics related to patient BMI and readmissions
-	    for (int i = 0; i < stats.bmiHosp.length; i++) {
-	        System.out.println(Arrays.toString(stats.bmiHosp[i]));
+	    for (int i = 0; i < statistics.bmiAverageOfHospitalized.length; i++) {
+	        System.out.println(Arrays.toString(statistics.bmiAverageOfHospitalized[i]));
 	    }
-	    for (int i = 0; i < stats.bmiHospCount.length; i++) {
-	        System.out.println(Arrays.toString(stats.bmiHospCount[i]));
+	    for (int i = 0; i < statistics.bmiPopulationOfHospitalized.length; i++) {
+	        System.out.println(Arrays.toString(statistics.bmiPopulationOfHospitalized[i]));
 	    }
-	    for (int i = 0; i < stats.bmiNoHosp.length; i++) {
-	        System.out.println(Arrays.toString(stats.bmiNoHosp[i]));
+	    for (int i = 0; i < statistics.bmiAverageOfNotHospitalized.length; i++) {
+	        System.out.println(Arrays.toString(statistics.bmiAverageOfNotHospitalized[i]));
 	    }
-	    for (int i = 0; i < stats.bmiNoHospCount.length; i++) {
-	        System.out.println(Arrays.toString(stats.bmiNoHospCount[i]));
+	    for (int i = 0; i < statistics.bmiPopulationOfNotHospitalized.length; i++) {
+	        System.out.println(Arrays.toString(statistics.bmiPopulationOfNotHospitalized[i]));
 	    }
 	    System.out.println();
 
 	    // Print chi-square test results for BMI ranges
-	    for (int i = 0; i < stats.bmiHosp.length; i++) {
-	        for (int j = 0; j < stats.bmiHosp[i].length; j++) {
-	            System.out.print(stats.chiSquare(stats.bmiHospCount[i][j], stats.bmiNoHospCount[i][j],
-	                    stats.sum(stats.bmiHospCount[i]), stats.sum(stats.bmiNoHospCount[i])) + ", ");
+	    for (int i = 0; i < statistics.bmiAverageOfHospitalized.length; i++) {
+	        for (int j = 0; j < statistics.bmiAverageOfHospitalized[i].length; j++) {
+	            System.out.print(statistics.chiSquare(statistics.bmiPopulationOfHospitalized[i][j], statistics.bmiPopulationOfNotHospitalized[i][j],
+	            		statistics.sum(statistics.bmiPopulationOfHospitalized[i]), statistics.sum(statistics.bmiPopulationOfNotHospitalized[i])) + ", ");
 	        }
 	        System.out.println();
 	    }
 	    System.out.println();
 
 	    // Print t-test results for BMI averages
-	    for (int i = 0; i < stats.bmiHospList.size(); i++) {
-	        System.out.println(stats.tTest(stats.bmiHospList.get(i), stats.bmiNoHospList.get(i)));
+	    for (int i = 0; i < statistics.bmiValuesOfHospitalized.size(); i++) {
+	        System.out.println(statistics.tTest(statistics.bmiValuesOfHospitalized.get(i), statistics.bmiValuesOfNotHospitalized.get(i)));
 	    }
 	    System.out.println();
 	    System.out.println();
 
 	    // Print t-test results for specific BMI ranges
-	    for (int i = 0; i < stats.bmiSpecificHospList.size(); i++) {
-	        for (int j = 0; j < stats.bmiSpecificHospList.get(i).size(); j++) {
-	            System.out.print(stats.tTest(stats.bmiSpecificHospList.get(i).get(j), stats.bmiSpecificNoHospList.get(i).get(j)) + ", ");
+	    for (int i = 0; i < statistics.bmiSpecificHospList.size(); i++) {
+	        for (int j = 0; j < statistics.bmiSpecificHospList.get(i).size(); j++) {
+	            System.out.print(statistics.tTest(statistics.bmiSpecificHospList.get(i).get(j), statistics.bmiSpecificNoHospList.get(i).get(j)) + ", ");
 	        }
 	        System.out.println();
 	    }
@@ -641,22 +636,22 @@ public class LTRStatistics {
 	        for (int j = 0; j < patient.readmissions.length; j++) {
 	            if (patient.readmissions[j]) {
 	                // Update statistics for hospitalized patients
-	                for (int k = 0; k < stats.MELD.length - 1; k++) {
-	                    if (b > stats.MELD[k] && b <= stats.MELD[k + 1]) {
-	                        stats.meldHosp[j][k] += b;
-	                        stats.meldHospCount[j][k]++;
-	                        stats.meldHospList.get(j).add(b);
-	                        stats.meldSpecificHospList.get(j).get(k).add(b);
+	                for (int k = 0; k < statistics.MELDCategoryBounds.length - 1; k++) {
+	                    if (b > statistics.MELDCategoryBounds[k] && b <= statistics.MELDCategoryBounds[k + 1]) {
+	                    	statistics.meldAverageOfHospitalized[j][k] += b;
+	                    	statistics.meldPopulationofHospitalized[j][k]++;
+	                    	statistics.meldValuesOfHospitalized.get(j).add(b);
+	                    	statistics.meldSpecificHospList.get(j).get(k).add(b);
 	                    }
 	                }
 	            } else {
 	                // Update statistics for non-hospitalized patients
-	                for (int k = 0; k < stats.MELD.length - 1; k++) {
-	                    if (b > stats.MELD[k] && b <= stats.MELD[k + 1]) {
-	                        stats.meldNoHosp[j][k] += b;
-	                        stats.meldNoHospCount[j][k]++;
-	                        stats.meldNoHospList.get(j).add(b);
-	                        stats.meldSpecificNoHospList.get(j).get(k).add(b);
+	                for (int k = 0; k < statistics.MELDCategoryBounds.length - 1; k++) {
+	                    if (b > statistics.MELDCategoryBounds[k] && b <= statistics.MELDCategoryBounds[k + 1]) {
+	                    	statistics.meldAverageOfNotHospitalized[j][k] += b;
+	                    	statistics.meldPopulationOfNotHospitalized[j][k]++;
+	                    	statistics.meldValuesOfNotHospitalized.get(j).add(b);
+	                    	statistics.meldSpecificNoHospList.get(j).get(k).add(b);
 	                    }
 	                }
 	            }
@@ -664,48 +659,48 @@ public class LTRStatistics {
 	    }
 
 	    // Calculate average MELD scores for hospitalized and non-hospitalized patients
-	    for (int i = 0; i < stats.meldHosp.length; i++) {
-	        for (int j = 0; j < stats.meldHosp[i].length; j++) {
-	            stats.meldHosp[i][j] = stats.meldHosp[i][j] / stats.meldHospCount[i][j];
-	            stats.meldNoHosp[i][j] = stats.meldNoHosp[i][j] / stats.meldNoHospCount[i][j];
+	    for (int i = 0; i < statistics.meldAverageOfHospitalized.length; i++) {
+	        for (int j = 0; j < statistics.meldAverageOfHospitalized[i].length; j++) {
+	        	statistics.meldAverageOfHospitalized[i][j] = statistics.meldAverageOfHospitalized[i][j] / statistics.meldPopulationofHospitalized[i][j];
+	        	statistics.meldAverageOfNotHospitalized[i][j] = statistics.meldAverageOfNotHospitalized[i][j] / statistics.meldPopulationOfNotHospitalized[i][j];
 	        }
 	    }
 
 	    // Print statistics related to patient MELD scores and readmissions
-	    for (int i = 0; i < stats.meldHosp.length; i++) {
-	        System.out.println(Arrays.toString(stats.meldHosp[i]));
+	    for (int i = 0; i < statistics.meldAverageOfHospitalized.length; i++) {
+	        System.out.println(Arrays.toString(statistics.meldAverageOfHospitalized[i]));
 	    }
-	    for (int i = 0; i < stats.meldHospCount.length; i++) {
-	        System.out.println(Arrays.toString(stats.meldHospCount[i]));
+	    for (int i = 0; i < statistics.meldPopulationofHospitalized.length; i++) {
+	        System.out.println(Arrays.toString(statistics.meldPopulationofHospitalized[i]));
 	    }
-	    for (int i = 0; i < stats.meldNoHosp.length; i++) {
-	        System.out.println(Arrays.toString(stats.meldNoHosp[i]));
+	    for (int i = 0; i < statistics.meldAverageOfNotHospitalized.length; i++) {
+	        System.out.println(Arrays.toString(statistics.meldAverageOfNotHospitalized[i]));
 	    }
-	    for (int i = 0; i < stats.meldNoHospCount.length; i++) {
-	        System.out.println(Arrays.toString(stats.meldNoHospCount[i]));
+	    for (int i = 0; i < statistics.meldPopulationOfNotHospitalized.length; i++) {
+	        System.out.println(Arrays.toString(statistics.meldPopulationOfNotHospitalized[i]));
 	    }
 
 	    // Print chi-square test results for MELD score ranges
-	    for (int i = 0; i < stats.meldHosp.length; i++) {
-	        for (int j = 0; j < stats.meldHosp[i].length; j++) {
-	            System.out.print(stats.chiSquare(stats.meldHospCount[i][j], stats.meldNoHospCount[i][j],
-	                    stats.sum(stats.meldHospCount[i]), stats.sum(stats.meldNoHospCount[i])) + ", ");
+	    for (int i = 0; i < statistics.meldAverageOfHospitalized.length; i++) {
+	        for (int j = 0; j < statistics.meldAverageOfHospitalized[i].length; j++) {
+	            System.out.print(statistics.chiSquare(statistics.meldPopulationofHospitalized[i][j], statistics.meldPopulationOfNotHospitalized[i][j],
+	            		statistics.sum(statistics.meldPopulationofHospitalized[i]), statistics.sum(statistics.meldPopulationOfNotHospitalized[i])) + ", ");
 	        }
 	        System.out.println();
 	    }
 	    System.out.println();
 
 	    // Print t-test results for MELD score averages
-	    for (int i = 0; i < stats.meldHospList.size(); i++) {
-	        System.out.println(stats.tTest(stats.meldHospList.get(i), stats.meldNoHospList.get(i)));
+	    for (int i = 0; i < statistics.meldValuesOfHospitalized.size(); i++) {
+	        System.out.println(statistics.tTest(statistics.meldValuesOfHospitalized.get(i), statistics.meldValuesOfNotHospitalized.get(i)));
 	    }
 	    System.out.println();
 	    System.out.println();
 
 	    // Print t-test results for specific MELD score ranges
-	    for (int i = 0; i < stats.meldSpecificHospList.size(); i++) {
-	        for (int j = 0; j < stats.meldSpecificHospList.get(i).size(); j++) {
-	            System.out.print(stats.tTest(stats.meldSpecificHospList.get(i).get(j), stats.meldSpecificNoHospList.get(i).get(j)) + ", ");
+	    for (int i = 0; i < statistics.meldSpecificHospList.size(); i++) {
+	        for (int j = 0; j < statistics.meldSpecificHospList.get(i).size(); j++) {
+	            System.out.print(statistics.tTest(statistics.meldSpecificHospList.get(i).get(j), statistics.meldSpecificNoHospList.get(i).get(j)) + ", ");
 	        }
 	        System.out.println();
 	    }
@@ -731,17 +726,17 @@ public class LTRStatistics {
 	            for (int j = 0; j < patient.readmissions.length; j++) {
 	                if (patient.readmissions[j]) {
 	                    // Update statistics for hospitalized patients
-	                    for (int k = 0; k < stats.funcStat.length; k++) {
-	                        if (funcstat == stats.funcStat[k]) {
-	                            stats.funcStatHosp[j][k]++;
+	                    for (int k = 0; k < statistics.functionalStatusCategories.length; k++) {
+	                        if (funcstat == statistics.functionalStatusCategories[k]) {
+	                        	statistics.functionalStatusofHospitalized[j][k]++;
 	                            break;
 	                        }
 	                    }
 	                } else {
 	                    // Update statistics for non-hospitalized patients
-	                    for (int k = 0; k < stats.funcStat.length; k++) {
-	                        if (funcstat == stats.funcStat[k]) {
-	                            stats.funcStatNoHosp[j][k]++;
+	                    for (int k = 0; k < statistics.functionalStatusCategories.length; k++) {
+	                        if (funcstat == statistics.functionalStatusCategories[k]) {
+	                        	statistics.functionalStatusofNotHospitalized[j][k]++;
 	                            break;
 	                        }
 	                    }
@@ -751,18 +746,18 @@ public class LTRStatistics {
 	    }
 
 	    // Print functional status statistics for hospitalized and non-hospitalized patients
-	    for (int i = 0; i < stats.funcStatHosp.length; i++) {
-	        System.out.println(stats.intervals[i]);
-	        System.out.println(Arrays.toString(stats.funcStatHosp[i]));
-	        System.out.println(Arrays.toString(stats.funcStatNoHosp[i]));
+	    for (int i = 0; i < statistics.functionalStatusofHospitalized.length; i++) {
+	        System.out.println(statistics.timeIntervals[i]);
+	        System.out.println(Arrays.toString(statistics.functionalStatusofHospitalized[i]));
+	        System.out.println(Arrays.toString(statistics.functionalStatusofNotHospitalized[i]));
 	    }
 	    System.out.println();
 
 	    // Print chi-square test results for functional status intervals
-	    for (int i = 0; i < stats.funcStatHosp.length; i++) {
-	        for (int j = 0; j < stats.funcStatHosp[i].length; j++) {
-	            System.out.print(stats.chiSquare(stats.funcStatHosp[i][j], stats.funcStatNoHosp[i][j],
-	                    stats.sum(stats.funcStatHosp[i]), stats.sum(stats.funcStatNoHosp[i])) + ", ");
+	    for (int i = 0; i < statistics.functionalStatusofHospitalized.length; i++) {
+	        for (int j = 0; j < statistics.functionalStatusofHospitalized[i].length; j++) {
+	            System.out.print(statistics.chiSquare(statistics.functionalStatusofHospitalized[i][j], statistics.functionalStatusofNotHospitalized[i][j],
+	            		statistics.sum(statistics.functionalStatusofHospitalized[i]), statistics.sum(statistics.functionalStatusofNotHospitalized[i])) + ", ");
 	        }
 	        System.out.println();
 	    }
