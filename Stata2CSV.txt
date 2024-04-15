@@ -1,0 +1,5 @@
+Run these commands in python console and write your own file names
+
+import pandas as pd
+data = pd.io.stata.read_stata('my_stata_file.dta')
+data.to_csv('my_stata_file.csv')
