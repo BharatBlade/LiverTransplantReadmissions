@@ -1,0 +1,508 @@
+0-2 months	ABST	N	1
+3-12 months	ABST	N	2
+13-24 months	ABST	N	3
+25-36 months	ABST	N	4
+37-48 months	ABST	N	5
+49-60 months	ABST	N	6
+>60 months	ABST	N	7
+Continues To Smoke	ABST	N	8
+Unknown duration	ABST	N	998
+Not Reported	ACTIVLVL	N	Null or Missing
+No change in activity level	ACTIVLVL	N	1
+Mild decrease in activity level	ACTIVLVL	N	2
+Moderate decrease in activity level	ACTIVLVL	N	3
+Severe decrease in activity level	ACTIVLVL	N	4
+Increase in activity level	ACTIVLVL	N	5
+Unknown	ACTIVLVL	N	6
+Unknown	ACTIVLVL	N	**OTHER**
+Medical therapy	ARRHYTH	N	1
+Cardioversion	ARRHYTH	N	2
+Electrophysiologic Ablation	ARRHYTH	N	3
+Grade 1 ? Bilious JP drainage more than 10 days	BILGRD	N	1
+Grade 2 ? Interventional procedure (ERCP, PTC, percutaneous drainage, etc.)	BILGRD	N	2
+Grade 1 AND Grade 2	BILGRD	N	3
+Grade 3 ? Surgical Intervention	BILGRD	N	4
+Grade 2 AND Grade 3	BILGRD	N	6
+Grade 1, Grade 2, AND Grade 3	BILGRD	N	7
+Not Reported	CIGYRS	N	Null or Missing
+0-10	CIGYRS	N	1
+11-20	CIGYRS	N	2
+21-30	CIGYRS	N	3
+31-40	CIGYRS	N	4
+41-50	CIGYRS	N	5
+>50	CIGYRS	N	6
+Unknown pack years	CIGYRS	N	998
+Unknown	CIGYRS	N	**OTHER**
+Not Reported	CITIZEN	N	Null or Missing
+US Citizen	CITIZEN	N	1
+RESIDENT ALIEN	CITIZEN	N	2
+NON-RESIDENT ALIEN	CITIZEN	N	3
+Non-US Citizen/US Resident	CITIZEN	N	4
+Non-US Citizen/Non-US Resident, Traveled to US for Reason Other Than Transplant	CITIZEN	N	5
+Non-US Citizen/Non-US Resident, Traveled to US for Transplant	CITIZEN	N	6
+Unknown	CITIZEN	N	**OTHER**
+Added to UNOS TX candidate waiting list	COMPKIF	N	1
+Other, specify	COMPKIF	N	2
+Bile Leak	COMPLIF	N	1
+Hepatic Resection	COMPLIF	N	2
+Abscess	COMPLIF	N	4
+Abscess AND Bile Leak	COMPLIF	N	5
+Liver Failure	COMPLIF	N	8
+Added to UNOS TX candidate waiting list	COMPLIF	N	16
+Added to UNOS TX candidate waiting list AND Liver Failure	COMPLIF	N	24
+Added to UNOS TX candidate waiting list AND Liver Failure AND Abscess AND Bile Leak AND Hepatic Resection	COMPLIF	N	31
+Other, specify	COMPLIF	N	32
+Other,specify AND Bile Leak	COMPLIF	N	33
+Other,specify AND Abscess	COMPLIF	N	36
+Other,specify AND Abscess AND Bile Leak	COMPLIF	N	37
+Other,specify AND Added to UNOS TX candidate waiting list	COMPLIF	N	48
+Insulin	DIABTRT	N	1
+Oral Hypoglycemic Agent	DIABTRT	N	2
+Insulin AND Oral Hypoglycemic Agent	DIABTRT	N	3
+Diet	DIABTRT	N	4
+Insulin AND Diet	DIABTRT	N	5
+Oral Hypoglycemic Agent AND Diet	DIABTRT	N	6
+Insulin AND Oral Hypoglycemic Agent AND Diet	DIABTRT	N	7
+Not Reported	DONORGL	C	
+Living Donor Heart Transplant	DONORGL	C	HR
+Intestine Segment	DONORGL	C	INS1
+Liver Segment	DONORGL	C	LIS1
+Domino Whole Liver	DONORGL	C	LIWD
+Left Kidney	DONORGL	C	LKI
+Left Lung Lobe	DONORGL	C	LLL
+Left Single Lung	DONORGL	C	LUL
+Right Single Lung	DONORGL	C	LUR
+Pancreas Segment	DONORGL	C	PAS1
+Right Kidney	DONORGL	C	RKI
+Right Lung Lobe	DONORGL	C	RLL
+Unknown	DONORGL	C	**OTHER**
+Not Reported	EDLEVEL	N	Null or Missing
+NONE	EDLEVEL	N	1
+GRADE SCHOOL (0-8)	EDLEVEL	N	2
+HIGH SCHOOL (9-12) or GED	EDLEVEL	N	3
+ATTENDED COLLEGE/TECHNICAL SCHOOL	EDLEVEL	N	4
+ASSOCIATE/BACHELOR DEGREE	EDLEVEL	N	5
+POST-COLLEGE GRADUATE DEGREE	EDLEVEL	N	6
+N/A (< 5 YRS OLD)	EDLEVEL	N	996
+UNKNOWN	EDLEVEL	N	998
+Unknown	EDLEVEL	N	**OTHER**
+Not Reported	ETHCAT	N	Null or Missing
+White, Non-Hispanic	ETHCAT	N	1
+Black, Non-Hispanic	ETHCAT	N	2
+Hispanic/Latino	ETHCAT	N	4
+Asian, Non-Hispanic	ETHCAT	N	5
+Amer Ind/Alaska Native, Non-Hispanic	ETHCAT	N	6
+Native Hawaiian/other Pacific Islander, Non-Hispanic	ETHCAT	N	7
+Multiracial, Non-Hispanic	ETHCAT	N	9
+Unknown	ETHCAT	N	998
+Unknown	ETHCAT	N	**OTHER**
+Not Reported	FOLCD	N	Null or Missing
+HOSPITAL DISCHARGE	FOLCD	N	1
+3 MONTH	FOLCD	N	3
+6 MONTH	FOLCD	N	6
+1 YEAR	FOLCD	N	10
+2 YEAR	FOLCD	N	20
+3 YEAR	FOLCD	N	30
+4 YEAR	FOLCD	N	40
+5 YEAR	FOLCD	N	50
+6 YEAR	FOLCD	N	60
+7 YEAR	FOLCD	N	70
+8 YEAR	FOLCD	N	80
+9 YEAR	FOLCD	N	90
+10 YEAR	FOLCD	N	100
+11 YEAR	FOLCD	N	110
+12 YEAR	FOLCD	N	120
+13 YEAR	FOLCD	N	130
+14 YEAR	FOLCD	N	140
+15 YEAR	FOLCD	N	150
+16 YEAR	FOLCD	N	160
+17 YEAR	FOLCD	N	170
+18 YEAR	FOLCD	N	180
+19 YEAR	FOLCD	N	190
+20 YEAR	FOLCD	N	200
+21 YEAR	FOLCD	N	210
+22 YEAR	FOLCD	N	220
+23 YEAR	FOLCD	N	230
+24 YEAR	FOLCD	N	240
+25 YEAR	FOLCD	N	250
+26 YEAR	FOLCD	N	260
+27 YEAR	FOLCD	N	270
+28 YEAR	FOLCD	N	280
+29 YEAR	FOLCD	N	290
+30 YEAR	FOLCD	N	300
+31 YEAR	FOLCD	N	310
+32 YEAR	FOLCD	N	320
+33 YEAR	FOLCD	N	330
+34 YEAR	FOLCD	N	340
+35 YEAR	FOLCD	N	350
+36 YEAR	FOLCD	N	360
+37 YEAR	FOLCD	N	370
+38 YEAR	FOLCD	N	380
+39 YEAR	FOLCD	N	390
+40 YEAR	FOLCD	N	400
+41 YEAR	FOLCD	N	410
+42 YEAR	FOLCD	N	420
+43 YEAR	FOLCD	N	430
+44 YEAR	FOLCD	N	440
+45 YEAR	FOLCD	N	450
+46 YEAR	FOLCD	N	460
+47 YEAR	FOLCD	N	470
+48 YEAR	FOLCD	N	480
+49 YEAR	FOLCD	N	490
+50 YEAR	FOLCD	N	500
+51 YEAR	FOLCD	N	510
+52 YEAR	FOLCD	N	520
+53 YEAR	FOLCD	N	530
+54 YEAR	FOLCD	N	540
+55 YEAR	FOLCD	N	550
+56 YEAR	FOLCD	N	560
+57 YEAR	FOLCD	N	570
+58 YEAR	FOLCD	N	580
+59 YEAR	FOLCD	N	590
+60 YEAR	FOLCD	N	600
+61 YEAR	FOLCD	N	610
+62 YEAR	FOLCD	N	620
+63 YEAR	FOLCD	N	630
+64 YEAR	FOLCD	N	640
+65 YEAR	FOLCD	N	650
+66 YEAR	FOLCD	N	660
+67 YEAR	FOLCD	N	670
+68 YEAR	FOLCD	N	680
+69 YEAR	FOLCD	N	690
+70 YEAR	FOLCD	N	700
+71 YEAR	FOLCD	N	710
+72 YEAR	FOLCD	N	720
+73 YEAR	FOLCD	N	730
+74 YEAR	FOLCD	N	740
+75 YEAR	FOLCD	N	750
+76 YEAR	FOLCD	N	760
+77 YEAR	FOLCD	N	770
+78 YEAR	FOLCD	N	780
+79 YEAR	FOLCD	N	790
+GRAFT FAILURE	FOLCD	N	800
+1 YEAR AFTER GRAFT FAILURE	FOLCD	N	801
+2 YEAR AFTER GRAFT FAILURE	FOLCD	N	802
+3 YEAR AFTER GRAFT FAILURE	FOLCD	N	803
+4 YEAR AFTER GRAFT FAILURE	FOLCD	N	804
+5 YEAR AFTER GRAFT FAILURE	FOLCD	N	805
+6 YEAR AFTER GRAFT FAILURE	FOLCD	N	806
+7 YEAR AFTER GRAFT FAILURE	FOLCD	N	807
+8 YEAR AFTER GRAFT FAILURE	FOLCD	N	808
+9 YEAR AFTER GRAFT FAILURE	FOLCD	N	809
+10 YEAR AFTER GRAFT FAILURE	FOLCD	N	810
+11 YEAR AFTER GRAFT FAILURE	FOLCD	N	811
+12 YEAR AFTER GRAFT FAILURE	FOLCD	N	812
+13 YEAR AFTER GRAFT FAILURE	FOLCD	N	813
+14 YEAR AFTER GRAFT FAILURE	FOLCD	N	814
+15 YEAR AFTER GRAFT FAILURE	FOLCD	N	815
+16 YEAR AFTER GRAFT FAILURE	FOLCD	N	816
+17 YEAR AFTER GRAFT FAILURE	FOLCD	N	817
+18 YEAR AFTER GRAFT FAILURE	FOLCD	N	818
+19 YEAR AFTER GRAFT FAILURE	FOLCD	N	819
+20 YEAR AFTER GRAFT FAILURE	FOLCD	N	820
+21 YEAR AFTER GRAFT FAILURE	FOLCD	N	821
+22 YEAR AFTER GRAFT FAILURE	FOLCD	N	822
+23 YEAR AFTER GRAFT FAILURE	FOLCD	N	823
+24 YEAR AFTER GRAFT FAILURE	FOLCD	N	824
+25 YEAR AFTER GRAFT FAILURE	FOLCD	N	825
+26 YEAR AFTER GRAFT FAILURE	FOLCD	N	826
+27 YEAR AFTER GRAFT FAILURE	FOLCD	N	827
+28 YEAR AFTER GRAFT FAILURE	FOLCD	N	828
+29 YEAR AFTER GRAFT FAILURE	FOLCD	N	829
+30 YEAR AFTER GRAFT FAILURE	FOLCD	N	830
+31 YEAR AFTER GRAFT FAILURE	FOLCD	N	831
+32 YEAR AFTER GRAFT FAILURE	FOLCD	N	832
+33 YEAR AFTER GRAFT FAILURE	FOLCD	N	833
+34 YEAR AFTER GRAFT FAILURE	FOLCD	N	834
+35 YEAR AFTER GRAFT FAILURE	FOLCD	N	835
+36 YEAR AFTER GRAFT FAILURE	FOLCD	N	836
+37 YEAR AFTER GRAFT FAILURE	FOLCD	N	837
+38 YEAR AFTER GRAFT FAILURE	FOLCD	N	838
+39 YEAR AFTER GRAFT FAILURE	FOLCD	N	839
+40 YEAR AFTER GRAFT FAILURE	FOLCD	N	840
+41 YEAR AFTER GRAFT FAILURE	FOLCD	N	841
+42 YEAR AFTER GRAFT FAILURE	FOLCD	N	842
+43 YEAR AFTER GRAFT FAILURE	FOLCD	N	843
+44 YEAR AFTER GRAFT FAILURE	FOLCD	N	844
+45 YEAR AFTER GRAFT FAILURE	FOLCD	N	845
+46 YEAR AFTER GRAFT FAILURE	FOLCD	N	846
+47 YEAR AFTER GRAFT FAILURE	FOLCD	N	847
+48 YEAR AFTER GRAFT FAILURE	FOLCD	N	848
+49 YEAR AFTER GRAFT FAILURE	FOLCD	N	849
+50 YEAR AFTER GRAFT FAILURE	FOLCD	N	850
+LOST TO FOLLOW UP:REPORTED ALIVE	FOLCD	N	900
+LOST TO FOLLOW UP	FOLCD	N	998
+RECIPIENT DEATH	FOLCD	N	999
+Unknown	FOLCD	N	**OTHER**
+Not Reported	FUNCSTAT	N	Null or Missing
+Performs activities of daily living with NO assistance.	FUNCSTAT	N	1
+Performs activities of daily living with SOME assistance.	FUNCSTAT	N	2
+Performs activities of daily living with TOTAL assistance.	FUNCSTAT	N	3
+Not Applicable (patient < 1 year old)	FUNCSTAT	N	996
+Unknown	FUNCSTAT	N	998
+10% - Moribund, fatal processes progressing rapidly	FUNCSTAT	N	2010
+20% - Very sick, hospitalization necessary: active treatment necessary	FUNCSTAT	N	2020
+30% - Severely disabled: hospitalization is indicated, death not imminent	FUNCSTAT	N	2030
+40% - Disabled: requires special care and assistance	FUNCSTAT	N	2040
+50% - Requires considerable assistance and frequent medical care	FUNCSTAT	N	2050
+60% - Requires occasional assistance but is able to care for needs	FUNCSTAT	N	2060
+70% - Cares for self: unable to carry on normal activity or active work	FUNCSTAT	N	2070
+80% - Normal activity with effort: some symptoms of disease	FUNCSTAT	N	2080
+90% - Able to carry on normal activity: minor symptoms of disease	FUNCSTAT	N	2090
+100% - Normal, no complaints, no evidence of disease	FUNCSTAT	N	2100
+10% - No play; does not get out of bed	FUNCSTAT	N	4010
+20% - Often sleeping; play entirely limited to very passive activities	FUNCSTAT	N	4020
+30% - In bed; needs assistance even for quiet play	FUNCSTAT	N	4030
+40% - Mostly in bed; participates in quiet activities	FUNCSTAT	N	4040
+50% - Can dress but lies around much of day; no active play; can take part in quiet play/activities	FUNCSTAT	N	4050
+60% - Up and around, but minimal active play; keeps busy with quieter activities	FUNCSTAT	N	4060
+70% - Both greater restriction of and less time spent in play activity	FUNCSTAT	N	4070
+80% - Active, but tires more quickly	FUNCSTAT	N	4080
+90% - Minor restrictions in physically strenuous activity	FUNCSTAT	N	4090
+100% - Fully active, normal	FUNCSTAT	N	4100
+Unknown	FUNCSTAT	N	**OTHER**
+Not Reported	HISTCAN	N	Null or Missing
+NO	HISTCAN	N	1
+SKIN - SQUAMOUS, BASAL CELL	HISTCAN	N	2
+SKIN - MELANOMA	HISTCAN	N	3
+CNS TUMOR - ASTROCYTOMA	HISTCAN	N	4
+CNS TUMOR - GLIOBLASTOMA MULTIFORME	HISTCAN	N	5
+CNS TUMOR - MEDULLOBLASTOMA	HISTCAN	N	6
+CNS TUMOR - NEUROBLASTOMA	HISTCAN	N	7
+CNS TUMOR - ANGIOBLASTOMA	HISTCAN	N	8
+CNS TUMOR - MENINGIOMA	HISTCAN	N	9
+CNS TUMOR - OTHER	HISTCAN	N	12
+GENITOURINARY - BLADDER	HISTCAN	N	13
+GENITOURINARY - UTERINE CERVIX	HISTCAN	N	14
+GENITOURINARY - UTERINE BODY ENDOMETRIAL	HISTCAN	N	15
+GENITOURINARY - UTERINE BODY CHORIOCARCINOMA	HISTCAN	N	16
+GENITOURINARY - VULVA	HISTCAN	N	17
+GENITOURINARY - OVARIAN	HISTCAN	N	18
+GENITOURINARY - PENIS, TESTICULAR	HISTCAN	N	19
+GENITOURINARY - PROSTATE	HISTCAN	N	20
+GENITOURINARY - KIDNEY	HISTCAN	N	21
+GENITOURINARY - UNKNOWN	HISTCAN	N	22
+GASTROINTESTINAL - ESOPHAGEAL	HISTCAN	N	23
+GASTROINTESTINAL - STOMACH	HISTCAN	N	24
+GASTROINTESTINAL - SMALL INTESTINE	HISTCAN	N	25
+GASTROINTESTINAL - COLO-RECTAL	HISTCAN	N	26
+GASTROINTESTINAL - LIVER & BILIARY TRACT	HISTCAN	N	27
+GASTROINTESTINAL - PANCREAS	HISTCAN	N	28
+BREAST	HISTCAN	N	29
+THYROID	HISTCAN	N	30
+TONGUE/THROAT	HISTCAN	N	32
+LARYNX	HISTCAN	N	33
+LUNG (include bronchial)	HISTCAN	N	34
+LEUKEMIA/LYMPHOMA	HISTCAN	N	35
+UNKNOWN	HISTCAN	N	998
+OTHER, SPECIFY	HISTCAN	N	999
+Unknown	HISTCAN	N	**OTHER**
+Not Reported	HISTHYPE	N	Null or Missing
+NO	HISTHYPE	N	1
+YES, 0-5 YEARS	HISTHYPE	N	2
+YES, 6-10 YEARS	HISTHYPE	N	3
+YES, >10 YEARS	HISTHYPE	N	4
+YES, UNKNOWN DURATION	HISTHYPE	N	5
+UNKNOWN	HISTHYPE	N	998
+Unknown	HISTHYPE	N	**OTHER**
+Loss of Health Insurance	INSLOSS	N	1
+Loss of Life Insurance	INSLOSS	N	2
+Sacrifice of Second Lobe Specify	IOCOMP	N	1
+Anesthetic Complication Specify	IOCOMP	N	2
+Arrhythmia Requiring Therapy	IOCOMP	N	4
+Cerebrovasular Accident	IOCOMP	N	8
+Phrenic Nerve Injury	IOCOMP	N	16
+Brachial Plexus Injury	IOCOMP	N	32
+Breast Implant Rupture	IOCOMP	N	64
+Other Specify	IOCOMP	N	128
+Not Reported	KIGLUMER	N	Null or Missing
+0-5	KIGLUMER	N	1
+6-10	KIGLUMER	N	2
+11-15	KIGLUMER	N	3
+16-20	KIGLUMER	N	4
+20+	KIGLUMER	N	5
+Indeterminate	KIGLUMER	N	6
+Unknown	KIGLUMER	N	**OTHER**
+Not Reported	KIPROCTY	N	Null or Missing
+Transabdominal	KIPROCTY	N	1
+Flank(retroperitoneal)	KIPROCTY	N	2
+Laparoscopic Not Hand-assisted	KIPROCTY	N	3
+Laparoscopic Hand-assisted	KIPROCTY	N	4
+Laparoscopic Unknown Type	KIPROCTY	N	5
+Natural Orifice	KIPROCTY	N	6
+Unknown	KIPROCTY	N	**OTHER**
+Not Reported	LDONCOD	N	Null or Missing
+Donation Related	LDONCOD	N	1
+Other Cause	LDONCOD	N	2
+Infection: Donation/Surgery Related	LDONCOD	N	3
+Infection: Not Donation/Surgery Related	LDONCOD	N	4
+Pulmonary Embolism	LDONCOD	N	5
+Malignancy	LDONCOD	N	6
+Domino Liver Donor-Transplant Related Death (Liver donors only)	LDONCOD	N	7
+Cardiovascular	LDONCOD	N	8
+CVA	LDONCOD	N	9
+Hemorrhage: Donation/Surgery Related	LDONCOD	N	10
+Hemorrhage: Not Donation/Surgery Related	LDONCOD	N	11
+Homicide	LDONCOD	N	12
+Suicide	LDONCOD	N	13
+Accidental	LDONCOD	N	14
+Other, specify	LDONCOD	N	15
+Unknown	LDONCOD	N	**OTHER**
+Not Reported	LDONREL	N	Null or Missing
+Biological, blood related Parent	LDONREL	N	1
+Biological, blood related Child	LDONREL	N	2
+Biological, blood related Identical Twin	LDONREL	N	3
+Biological, blood related Full Sibling	LDONREL	N	4
+Biological, blood related Half Sibling	LDONREL	N	5
+Biological, blood related Other Relative: Specify	LDONREL	N	6
+Non-Biological, Spouse	LDONREL	N	7
+Non-Biological, Life Partner	LDONREL	N	8
+Non-Biol,unrel: Paired Donation	LDONREL	N	9
+Non-Biol,unrel: Anonymous Donation	LDONREL	N	10
+Non-Biol,Living/Deceased Donor Donation	LDONREL	N	11
+Non-Biological, Unrelated: Domino	LDONREL	N	12
+Biological, blood related: Domino	LDONREL	N	13
+Biological, blood related: Non-Domino Therapeutic donor	LDONREL	N	14
+Non-Biological, Unrelated: Non-Domino Therapeutic donor	LDONREL	N	15
+Non-Biological, Other Unrelated Directed Donation: Specify	LDONREL	N	999
+Unknown	LDONREL	N	**OTHER**
+Left Lateral Segment (Peds)	LIPROC	N	1
+Left Lobe	LIPROC	N	2
+Right Lobe	LIPROC	N	3
+Domino Whole Liver	LIPROC	N	4
+Open	LUPROCTY	N	1
+Video Assisted Thoracoscopic	LUPROCTY	N	2
+Wound Infection	LUREAD	N	1
+Fever	LUREAD	N	2
+Bowel Obstruction	LUREAD	N	4
+Pleural Effusion	LUREAD	N	8
+Vascular Complications	LUREAD	N	16
+Other, specify	LUREAD	N	32
+Not Reported	MARISTAT	N	Null or Missing
+Single	MARISTAT	N	1
+Married	MARISTAT	N	2
+Divorced	MARISTAT	N	3
+Separated	MARISTAT	N	4
+Life Partner	MARISTAT	N	5
+Widowed	MARISTAT	N	6
+Unknown	MARISTAT	N	998
+Unknown	MARISTAT	N	**OTHER**
+Renal insufficiency requiring dialysis	OTHCOMP	N	1
+Ascites	OTHCOMP	N	2
+Line or IV complication	OTHCOMP	N	4
+Pneumothorax	OTHCOMP	N	8
+Renal insufficiency requiring dialysis AND Pneumothorax	OTHCOMP	N	9
+Ascites AND Pneumothorax	OTHCOMP	N	10
+Pneumonia	OTHCOMP	N	16
+Pneumonia AND Ascites	OTHCOMP	N	18
+Pneumonia AND Ascites AND Renal insufficiency requiring dialysis	OTHCOMP	N	19
+Wound Complication	OTHCOMP	N	32
+Brachial Nerve Injury	OTHCOMP	N	64
+Brachial Nerve Injury AND Renal insufficiency requiring dialysis	OTHCOMP	N	65
+Brachial Nerve Injury AND Ascites	OTHCOMP	N	66
+Brachial Nerve Injury AND Pneumothorax	OTHCOMP	N	72
+Brachial Nerve Injury AND Pneumonia	OTHCOMP	N	80
+Brachial Nerve Injury AND Pneumonia AND Pneumothorax	OTHCOMP	N	88
+Brachial Nerve Injury AND Wound Complication AND Pneumothorax	OTHCOMP	N	106
+Other, specify	OTHCOMP	N	128
+Renal insufficiency requiring dialysis	OTHCOMPK	N	1
+Ascites	OTHCOMPK	N	2
+Line or IV complication	OTHCOMPK	N	4
+Pneumothorax	OTHCOMPK	N	8
+Pneumonia	OTHCOMPK	N	16
+Wound Complication	OTHCOMPK	N	32
+Brachial Nerve Injury	OTHCOMPK	N	64
+Other, specify	OTHCOMPK	N	128
+Not Reported	PHYSCAP	N	Null or Missing
+No Limitations	PHYSCAP	N	1
+Limited Mobility	PHYSCAP	N	2
+Wheelchair bound or more limited	PHYSCAP	N	3
+N/A (< 1 yr old or hospitalized	PHYSCAP	N	996
+Unknown	PHYSCAP	N	998
+Unknown	PHYSCAP	N	**OTHER**
+Arrhythmia requiring therapy	POCOMP	N	1
+Bleeding requiring surgical or therapeutic bronchoscopic intervention	POCOMP	N	2
+Bowel obstruction or ileus not requiring surgical intervention	POCOMP	N	4
+Bowel obstruction or ileus requiring surgical intervention	POCOMP	N	8
+Bronchial Stenosis/Stricture not requiring surgical or therapeutic bronchoscopic intervention	POCOMP	N	16
+Bronchial Stenosis/Stricture requiring surgical or therapeutic bronchoscopic intervention	POCOMP	N	32
+Bronchopleural Fistula requiring surgical or therapeutic bronchoscopic intervention	POCOMP	N	64
+Cerebrovascular Accident	POCOMP	N	128
+Deep Vein Thrombosis	POCOMP	N	256
+Empyema requiring therapeutic surgical intervention	POCOMP	N	512
+Epidural-Related Complication	POCOMP	N	1024
+Line or IV Complication	POCOMP	N	2048
+Loculated pleural effusion requiring surgical intervention	POCOMP	N	4096
+Pericardial tamponade or pericarditis requiring surgical intervention	POCOMP	N	8192
+Pericarditis not requiring surgical intervention	POCOMP	N	16384
+Peripheral Nerve Injury	POCOMP	N	32768
+Phrenic Nerve Injury	POCOMP	N	65536
+Placement of Additional Thoracostomy Tube(s), Specify Indication	POCOMP	N	131072
+Pneumonia/Atelectasis	POCOMP	N	262144
+Prolonged (>14days) Thoracostomy Tube Requirement	POCOMP	N	524288
+Pulmonary Artery Embolus or Thrombosis	POCOMP	N	1048576
+Pulmonary Vein or Left Atrial Thrombosis	POCOMP	N	2097152
+Wound Complication	POCOMP	N	4194304
+Wound infection requiring surgical intervention	POCOMP	N	8388608
+Other Specify	POCOMP	N	16777216
+Not Reported	PROCLD	N	Null or Missing
+Not Done	PROCLD	N	1
+Yes, Normal Results	PROCLD	N	2
+Yes, Specify Results	PROCLD	N	3
+Unknown	PROCLD	N	4
+Unknown	PROCLD	N	**OTHER**
+Wound Infection	READ	N	1
+Fever	READ	N	2
+Bowel Obstruction	READ	N	4
+Pleural Effusion	READ	N	8
+Pleural Effusion AND Wound Infection	READ	N	9
+Biliary Complications	READ	N	16
+Biliary Complications AND Fever	READ	N	18
+Biliary Complications AND Fever AND Wound Infection	READ	N	19
+Vascular Complications	READ	N	32
+Other, specify	READ	N	64
+Wound Infection AND Other,specify	READ	N	65
+Other, Specify AND Fever	READ	N	66
+Other,specify AND Pleural Effusion	READ	N	72
+Other,specify AND Biliary Complications	READ	N	80
+Other,specify AND Biliary Complications AND Pleural Effusion	READ	N	88
+Other,specify AND Vascular Complications AND Pleural Effusion AND Fever	READ	N	106
+Wound Infection	READKI	N	1
+Fever	READKI	N	2
+Bowel Obstruction	READKI	N	4
+Pleural Effusion	READKI	N	8
+Vascular Complications	READKI	N	16
+Other, specify	READKI	N	32
+Not Reported	SERSTAT	C	
+Cannot Disclose	SERSTAT	C	C
+Indeterminate	SERSTAT	C	I
+Negative	SERSTAT	C	N
+Not Done	SERSTAT	C	ND
+Positive	SERSTAT	C	P
+Pending	SERSTAT	C	PD
+Unknown	SERSTAT	C	U
+Unknown	SERSTAT	C	**OTHER**
+Pneumothorax	TUBES	N	1
+Pleural effusion	TUBES	N	2
+Empyema	TUBES	N	3
+Not Reported	URINPROT	N	Null or Missing
+Positive	URINPROT	N	1
+Negative	URINPROT	N	2
+Not Done	URINPROT	N	3
+Unknown	URINPROT	N	998
+Unknown	URINPROT	N	**OTHER**
+Portal Vein	VASC	N	1
+Hepatic Vein	VASC	N	2
+Hepatic Artery	VASC	N	4
+Pulmonary Embolus	VASC	N	8
+Deep Vein Thrombosis	VASC	N	16
+Deep Vein Thrombosis AND Pulmonary Embolus	VASC	N	24
+Other, Specify	VASC	N	32
+Other,specify AND Deep Vein Thrombosis AND Pulmonary Embolus	VASC	N	56
+Renal Vein	VASCKI	N	1
+Renal Artery	VASCKI	N	2
+Aorta	VASCKI	N	4
+Vena Cava	VASCKI	N	8
+Pulmonary Embolus	VASCKI	N	16
+Deep Vein Thrombosis	VASCKI	N	32
+Other, specify	VASCKI	N	64
